@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My schedule</title>
-</head>
-
-<body>
-    {% for day, events in schedule.items() %}
-    <div>
-        {{day}}
-        <ul>
-            {% for event in events %}
-            <li>
-                {{event['summary']}}
-                <br>
-                {{event['start'].strftime('%H:%M')}} - {{event['end'].strftime('%H:%M')}} {{event['location']}}
-                <br>
-                {{event['teacher']}}
-            </li>
+{% extends 'base.html' %}
+{% block content %}
+{% for day, events in schedule.items() %}
+<div>
+    {{day}}
+    <ul>
+        {% for event in events %}
+        <li>
+            {{event['summary']}}
             <br>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endfor %}
-
-</body>
-
-</html>
+            {{event['start'].strftime('%H:%M')}} - {{event['end'].strftime('%H:%M')}} {{event['location']}}
+            <br>
+            {{event['teacher']}}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}

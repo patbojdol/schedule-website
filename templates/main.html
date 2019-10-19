@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My schedule</title>
-</head>
-
-<body>
-    <form action='/schedule'>
-        <input name='schedule-id'>
+{% extends 'base.html' %}
+{% block content %}
+<div class='container'>
+    <form action='/schedule' method="GET">
+        ID:<input name='schedule-id'>
+        Start date:<input type='date' name='start-date'>
+        End date: <input type='date' name='end-date'>
         <button type='submit'>DEJ</button>
     </form>
-
-</body>
-
-</html>
+</div>
+{% endblock %}
