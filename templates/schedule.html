@@ -6,7 +6,13 @@
 
         <div class='card-header {{"bg-primary text-white" if today==day}}'
             style='background-color: rgba(0, 0, 0, 0.06);'>
-            {{day.strftime('%Y-%m-%d %A')}}
+            <strong>
+                {{day.strftime('%A')}}
+            </strong>
+            <small class='text-muted'>
+                {{day.strftime('%Y-%m-%d')}}
+            </small>
+
         </div>
 
         <div class='card-body px-2 py-1' style='background-color: rgba(0, 0, 0, 0.03);'>
@@ -14,15 +20,21 @@
             <div class='card my-1'>
                 <div class='card-body py-2'>
                     <div class='row'>
-                        <div class='col-2'>
-                            {{event.start.strftime('%H:%M')}} - {{event.end.strftime('%H:%M')}}
-                            <br>
-                            {{event.location}}
+                        <div class='col-4 col-lg-2 '>
+                            <div class='mb-2'>
+                                {{event.start.strftime('%H:%M')}} - {{event.end.strftime('%H:%M')}}
+                            </div>
+                            <div>
+                                {{event.location}}
+                            </div>
                         </div>
-                        <div class='col-10'>
-                            {{event.name}}
-                            <br>
-                            {{event.teacher}}
+                        <div class='col-8 col-lg-10'>
+                            <div class='mb-2'>
+                                <strong> {{event.name}} </strong>
+                            </div>
+                            <div>
+                                {{event.teacher}}
+                            </div>
                         </div>
                     </div>
                 </div>

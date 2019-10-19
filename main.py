@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    return render_template('main.html')
+    now = datetime.now()
+    start = now - timedelta(days=now.weekday())
+    end = start + timedelta(days=14)
+    return render_template('main.html', start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d'))
 
 
 @app.route('/schedule')
