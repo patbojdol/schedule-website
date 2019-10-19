@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class='container'>
-    <form action='/schedule' method="GET">
-        ID:<input name='schedule-id'>
-        Start date:<input type='date' name='start-date'>
-        End date: <input type='date' name='end-date'>
-        <button type='submit'>DEJ</button>
-    </form>
+    <div class='card'>
+        <div class='card-body'>
+            <form action='/schedule' method="GET">
+                <div class='row'>
+                    <div class='col-12 col-md-4'>
+                        <div class='form-group'>
+                            <label for='schedule-id'>ID</label>
+                            <input type='text' class='form-control' id='schedule-id' name='schedule-id' required>
+                        </div>
+                    </div>
+
+                    <div class='col-12 col-md-4'>
+                        <div class='form-group'>
+                            <label for='start-date'>Start date</label>
+                            <input type='date' class='form-control' id='start-date' name='start-date' value='{{start}}'
+                                required>
+                        </div>
+                    </div>
+
+                    <div class='col-12 col-md-4'>
+                        <div class='form-group'>
+                            <label for='end-date'>End date</label>
+                            <input type='date' class='form-control' id='end-date' name='end-date' value='{{end}}'
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <button type='submit' class='btn btn-primary'>DEJ</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
