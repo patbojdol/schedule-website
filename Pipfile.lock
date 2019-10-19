@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f3917ac1beed06bd08e6abfbad130d9b66611b2db0741f2e98f751ef64a53e00"
+            "sha256": "e9e9f4bde1d9b4bea502d41c81d2dc0c61e3666ed2a2e3fc2ac71b3d656eda87"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -134,13 +134,13 @@
             ],
             "version": "==1.12.0"
         },
-        "ue-schedule-tool": {
+        "ue-schedule": {
             "hashes": [
-                "sha256:9c6accd90ab805e79a8f9254030f0ae224f0b2e09405342071dc7f433ef1e8ee",
-                "sha256:ed19f018fff37196a50191fd0be5a1819b1a073a4b6567d11649f92945018b15"
+                "sha256:8fa1c1048ef5d5e4b4c1039d6f8fc1d1c56983c8dcc139389bc4e332ba3d8b30",
+                "sha256:e5f401f6fa887477dc46671247b36376ac9157403906ca951c5fbc510ad26c83"
             ],
             "index": "pypi",
-            "version": "==0.1.2"
+            "version": "==0.2.3"
         },
         "urllib3": {
             "hashes": [

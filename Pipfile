@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-ue-schedule-tool = "*"
+ue-schedule = "*"
 
 [requires]
 python_version = "3.7"
