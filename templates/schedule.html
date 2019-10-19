@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for day, events in schedule.items() %}
-<div>
-    {{day}}
-    <ul>
-        {% for event in events %}
-        <li>
-            {{event['summary']}}
+<div class='container'>
+    {% for day, events in schedule.items() %}
+    <div>
+        {{day}}
+        <ul>
+            {% for event in events %}
+            <li>
+                {{event['summary']}}
+                <br>
+                {{event['start'].strftime('%H:%M')}} - {{event['end'].strftime('%H:%M')}} {{event['location']}}
+                <br>
+                {{event['teacher']}}
+            </li>
             <br>
-            {{event['start'].strftime('%H:%M')}} - {{event['end'].strftime('%H:%M')}} {{event['location']}}
-            <br>
-            {{event['teacher']}}
-        </li>
-        <br>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
-{% endblock %}
+{% endblock%}
