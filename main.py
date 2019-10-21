@@ -12,7 +12,7 @@ def main():
     start = now - timedelta(days=now.weekday())
     end = start + timedelta(days=13)
     return render_template(
-        "main.html", start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")
+        "main.html.j2", start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")
     )
 
 
@@ -31,7 +31,7 @@ def schedule():
     today = date(now.year, now.month, now.day)
 
     return render_template(
-        "schedule.html", schedule=schedule.nested_events, today=today
+        "schedule.html.j2", schedule=schedule.nested_events, today=today
     )
 
 

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html.j2' %}
 
 {% block content %}
 <div class="container mb-5">
@@ -11,6 +11,7 @@
 			<strong>
 				{{ day.strftime('%A') }}
 			</strong>
+
 			<small>
 				{{ day.strftime('%Y-%m-%d') }}
 			</small>
