@@ -6,48 +6,48 @@ from datetime import datetime, timedelta, date
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def main():
     now = datetime.now()
     start = now - timedelta(days=now.weekday())
-    end = start + timedelta(days=14)
-    return render_template('main.html', start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d'))
+    end = start + timedelta(days=13)
+    return render_template(
+        "main.html.j2", start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")
+    )
 
 
-@app.route('/schedule')
+@app.route("/schedule")
 def schedule():
-    schedule_id = request.args.get('schedule-id')
+    schedule_id = request.args.get("schedule-id")
 
-    start = datetime.strptime(request.args.get('start-date'), '%Y-%m-%d')
-    end = datetime.strptime(request.args.get('end-date'), '%Y-%m-%d')
+    start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
+    end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
 
     schedule = Schedule(
-        schedule_id,
-        start.strftime('%Y-%m-%d'),
-        end.strftime('%Y-%m-%d')
+        schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
     )
 
     now = datetime.now()
     today = date(now.year, now.month, now.day)
 
-    return render_template('schedule.html', schedule=schedule.nested_events, today=today)
-
-
-@app.route('/schedule.ics')
-def schedule_ics():
-    schedule_id = request.args.get('schedule-id')
-
-    start = datetime.strptime(request.args.get('start-date'), '%Y-%m-%d')
-    end = datetime.strptime(request.args.get('end-date'), '%Y-%m-%d')
-
-    schedule = Schedule(
-        schedule_id,
-        start.strftime('%Y-%m-%d'),
-        end.strftime('%Y-%m-%d')
+    return render_template(
+        "schedule.html.j2", schedule=schedule.nested_events, today=today
     )
 
-    return Response(schedule.to_ical(), mimetype='text/calendar')
+
+@app.route("/schedule.ics")
+def schedule_ics():
+    schedule_id = request.args.get("schedule-id")
+
+    start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
+    end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
+
+    schedule = Schedule(
+        schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
+    )
+
+    return Response(schedule.to_ical(), mimetype="text/calendar")
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
