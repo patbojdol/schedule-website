@@ -3,16 +3,16 @@
 {% block content %}
 <div class="container mb-5">
 	{% for day, events in schedule.items() %}
-	<div class="card my-3 shadow-sm">
+	<div class="card my-3 {{'border border-primary' if today==day}} shadow-sm">
 		<div
-			class="card-header {{'bg-primary text-white' if today==day}}"
-			style="background-color: rgba(0, 0, 0, 0.06);"
+			class="card-header p-2 pl-3"
+			style="background-color: rgba(0, 0, 0, 0.07);"
 		>
 			<strong>
 				{{ day.strftime('%A') }}
 			</strong>
 
-			<small>
+			<small class='text-muted'>
 				{{ day.strftime('%Y-%m-%d') }}
 			</small>
 		</div>
@@ -20,23 +20,27 @@
 		<div class="card-body px-2 py-1" style="background-color: rgba(0, 0, 0, 0.03);">
 			{% for event in events %}
 			<div class="card my-1">
-				<div class="card-body py-2">
+				<div class="card-body py-1 px-2">
 					<div class="row">
 						<div class="col-4 col-lg-2 ">
-							<div class="mb-2">
+							<div>
 								{{ event.start.strftime('%H:%M') }} - {{ event.end.strftime('%H:%M') }}
 							</div>
-							<div>
+							{% if event.location %}
+							<div class="mt-1">
 								{{ event.location }}
 							</div>
+							{% endif %}
 						</div>
 						<div class="col-8 col-lg-10">
-							<div class="mb-2">
+							<div>
 								<strong> {{ event.name }} </strong>
 							</div>
-							<div>
+							{% if event.teacher %}
+							<div class="mt-1">
 								{{ event.teacher }}
 							</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
