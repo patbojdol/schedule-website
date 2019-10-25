@@ -5,6 +5,7 @@
 	{% for day, events in schedule.items() %}
 	<div class="card my-3 {{'border border-primary' if today==day}} shadow-sm">
 		<div
+			data-toggle="collapse" data-target="#collapse{{day}}"
 			class="card-header p-2 pl-3"
 			style="background-color: rgba(0, 0, 0, 0.07);"
 		>
@@ -17,6 +18,7 @@
 			</small>
 		</div>
 
+		<div id="collapse{{day}}" class="collapse {{'show' if day >= today}}">
 		<div class="card-body px-2 py-1" style="background-color: rgba(0, 0, 0, 0.03);">
 			{% for event in events %}
 			<div class="card my-1">
@@ -46,6 +48,7 @@
 				</div>
 			</div>
 			{% endfor %}
+		</div>
 		</div>
 	</div>
 	{% endfor %}
