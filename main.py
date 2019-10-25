@@ -39,12 +39,15 @@ def schedule():
 def schedule_ics():
     schedule_id = request.args.get("schedule-id")
 
-    start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
-    end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
+    if "start-date" in request.args and "end-date" in request.args:
+        start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
+        end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
 
-    schedule = Schedule(
-        schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
-    )
+        schedule = Schedule(
+            schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
+        )
+    else:
+        schedule = Schedule(schedule_id)
 
     return Response(schedule.to_ical(), mimetype="text/calendar")
 
