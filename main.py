@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 from flask import Flask, render_template, request, Response
 from ue_schedule import Schedule
 from datetime import datetime, timedelta, date
@@ -11,6 +11,7 @@ def main():
     now = datetime.now()
     start = now - timedelta(days=now.weekday())
     end = start + timedelta(days=13)
+
     return render_template(
         "main.jinja2", start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")
     )
@@ -19,37 +20,31 @@ def main():
 @app.route("/schedule")
 def schedule():
     schedule_id = request.args.get("schedule-id")
+    schedule = Schedule(schedule_id)
 
-    start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
-    end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
-
-    schedule = Schedule(
-        schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
-    )
-
-    now = datetime.now()
-    today = date(now.year, now.month, now.day)
+    if "start-date" in request.args and "end-date" in request.args:
+        start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d").date()
+        end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d").date()
+        events = schedule.get_events(start, end)
+    else:
+        events = schedule.get_events()
 
     return render_template(
-        "schedule.jinja2", schedule=schedule.nested_events, today=today
+        "schedule.jinja2",
+        schedule=events,
+        schedule_id=schedule_id,
+        today=datetime.now().date(),
     )
 
 
 @app.route("/schedule.ics")
 def schedule_ics():
     schedule_id = request.args.get("schedule-id")
+    schedule = Schedule(schedule_id)
 
-    if "start-date" in request.args and "end-date" in request.args:
-        start = datetime.strptime(request.args.get("start-date"), "%Y-%m-%d")
-        end = datetime.strptime(request.args.get("end-date"), "%Y-%m-%d")
+    events = schedule.get_ical()
 
-        schedule = Schedule(
-            schedule_id, start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d")
-        )
-    else:
-        schedule = Schedule(schedule_id)
-
-    return Response(schedule.to_ical(), mimetype="text/calendar")
+    return Response(events, mimetype="text/calendar")
 
 
 if __name__ == "__main__":

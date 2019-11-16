@@ -1,56 +1,78 @@
 {% extends 'base.jinja2' %}
 
+{% block nav_buttons %}
+	<a href="/schedule.ics?schedule-id={{schedule_id}}" class='btn btn-primary'>Download .ics</a>
+	<a href="https://calendar.google.com/calendar/r?cid=http://ue.mrim.pl/schedule.ics?schedule-id={{schedule_id}}" class='btn btn-success'>Subscribe GCal</a>
+{% endblock %}
+
+
 {% block content %}
 <div class="container mb-5">
 	{% for day, events in schedule.items() %}
-	<div class="card my-3 {{'border border-primary' if today==day}} shadow-sm">
-		<div
-			data-toggle="collapse" data-target="#collapse{{day}}"
-			class="card-header p-2 pl-3"
-			style="background-color: rgba(0, 0, 0, 0.07);"
-		>
-			<strong>
-				{{ day.strftime('%A') }}
-			</strong>
 
-			<small class='text-muted'>
-				{{ day.strftime('%Y-%m-%d') }}
-			</small>
-		</div>
+		{% if day.weekday() == 5 %}
+			<hr>
+		{% elif day.weekday() == 6 %}
+		{% else %}
+		<div class="card my-3 {{'border border-primary' if today==day}} shadow-sm">
+			<div
+				data-toggle="collapse" data-target="#collapse{{day}}"
+				class="card-header p-2 pl-3"
+				style="background-color: rgba(0, 0, 0, 0.07);"
+			>
+				<strong>
+					{{ day.strftime('%A') }}
+				</strong>
 
-		<div id="collapse{{day}}" class="collapse {{'show' if day >= today}}">
-		<div class="card-body px-2 py-1" style="background-color: rgba(0, 0, 0, 0.03);">
-			{% for event in events %}
-			<div class="card my-1">
-				<div class="card-body py-1 px-2">
-					<div class="row">
-						<div class="col-4 col-lg-2 ">
-							<div>
-								{{ event.start.strftime('%H:%M') }} - {{ event.end.strftime('%H:%M') }}
+				<small class='text-muted'>
+					{{ day.strftime('%Y-%m-%d') }}
+				</small>
+
+				{% if not events %}
+				<small class='ml-1'>
+					Day off
+				</small>
+				{% endif %}
+
+			</div>
+
+			<div id="collapse{{day}}" class="collapse {{'show' if day >= today}}">
+
+			{% if events %}
+			<div class="card-body px-2 py-1" style="background-color: rgba(0, 0, 0, 0.03);">
+				{% for event in events %}
+				<div class="card my-1">
+					<div class="card-body py-1 px-2">
+						<div class="row">
+							<div class="col-4 col-lg-2 ">
+								<div>
+									{{ event.start.strftime('%H:%M') }} - {{ event.end.strftime('%H:%M') }}
+								</div>
+								{% if event.location %}
+								<div class="mt-1">
+									{{ event.location }}
+								</div>
+								{% endif %}
 							</div>
-							{% if event.location %}
-							<div class="mt-1">
-								{{ event.location }}
+							<div class="col-8 col-lg-10">
+								<div>
+									<strong> {{ event.name }} </strong>
+								</div>
+								{% if event.teacher %}
+								<div class="mt-1">
+									{{ event.teacher }}
+								</div>
+								{% endif %}
 							</div>
-							{% endif %}
-						</div>
-						<div class="col-8 col-lg-10">
-							<div>
-								<strong> {{ event.name }} </strong>
-							</div>
-							{% if event.teacher %}
-							<div class="mt-1">
-								{{ event.teacher }}
-							</div>
-							{% endif %}
 						</div>
 					</div>
 				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
+			{% endif %}
+			</div>
 		</div>
-		</div>
-	</div>
+		{% endif %}
 	{% endfor %}
 </div>
 {% endblock %}

@@ -14,8 +14,15 @@
 	</head>
 
 	<body>
-		<header class="navbar-dark bg-dark navbar-expand-lg mb-1 pl-2">
-			<a href="/" class="navbar-brand">UE schedule</a>
+		<header class="navbar navbar-dark bg-dark navbar-expand-lg justify-content-between mb-1 pl-2">
+			<div class='container'>
+				<a href="/" class="navbar-brand mr-auto">UE schedule</a>
+
+				<span>
+					{% block nav_buttons %}
+					{% endblock %}
+				</span>
+			</div>
 		</header>
 
 		{% block content %}{% endblock %}
