@@ -10,6 +10,3 @@ flake8 = "*"
 [packages]
 flask = "*"
 ue-schedule = "*"
-
-[requires]
-python_version = "3.7"
