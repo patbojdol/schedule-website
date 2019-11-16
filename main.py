@@ -29,6 +29,11 @@ def schedule():
     else:
         events = schedule.get_events()
 
+    with open("schedule.log", "a") as f:
+        ua = request.headers.get("User-Agent")
+        time_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"View | {schedule_id} | {time_now} | {ua}\n")
+
     return render_template(
         "schedule.jinja2",
         schedule=events,
@@ -41,8 +46,12 @@ def schedule():
 def schedule_ics():
     schedule_id = request.args.get("schedule-id")
     schedule = Schedule(schedule_id)
-
     events = schedule.get_ical()
+
+    with open("schedule.log", "a") as f:
+        ua = request.headers.get("User-Agent")
+        time_now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"ICal | {schedule_id} | {time_now} | {ua}\n")
 
     return Response(events, mimetype="text/calendar")
 
