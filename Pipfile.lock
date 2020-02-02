@@ -139,11 +139,11 @@
         },
         "ue-schedule": {
             "hashes": [
-                "sha256:834c04faf03d82699edc9826eadaa6e43efb141ec42f71926ab5f837a1788a70",
-                "sha256:c910d592457014230732e3f76be56c37f814c69886b69bfb0034d71e93c4e487"
+                "sha256:59393ef278cdc4738df4a579f58be91cf1cb6153c3f03f6260511c7b369f4d06",
+                "sha256:5bcc654d8372df46763592508396a9ae60c02c4d263ab60ff1c402f7162401d7"
             ],
             "index": "pypi",
-            "version": "==1.0.3"
+            "version": "==1.0.4"
         },
         "urllib3": {
             "hashes": [
