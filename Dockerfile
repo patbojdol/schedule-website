@@ -5,12 +5,12 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /app
 WORKDIR /app
 
-# Install pipenv
-RUN pip install pipenv gunicorn
+# Install poetry
+RUN pip install poetry gunicorn
 
 # Copy pipfile and install dependencies
-COPY Pipfile* /app/
-RUN pipenv install --system
+COPY poetry.lock pyproject.toml /app/
+RUN poetry export -f requirements.txt -o requirements.txt && pip install -r requirements.txt
 
 # Copy app code
 COPY . /app/
